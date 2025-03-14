@@ -1,1 +1,97 @@
-Welcome ^_^ Quo_O
+<!DOCTYPE HTML>
+<!--
+	Aerial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>QAS</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div id="wrapper">
+			<div id="bg"></div>
+			<div id="overlay"></div>
+			<div id="main">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>(Quo_O). Alief S.</h1>
+						<p>Freelancer &nbsp;&bull;&nbsp; Business &nbsp;&bull;&nbsp; Just wait for surprise ^_^</p>
+						<div id="countdown" class="count"></div>
+						<nav>
+							<ul>
+								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+								<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+								<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Footer "http://html5up.net"-->
+					<footer id="footer">
+						<span class="copyright">&copy; 2025. Design by <a href="#">html5up</a>.</span>
+					</footer>
+
+			</div>
+		</div>
+		<script>
+			window.onload = function() { document.body.classList.remove('is-preload'); }
+			window.ontouchmove = function() { return false; }
+			window.onorientationchange = function() { document.body.scrollTop = 0; }
+            
+              // Get today's date and time
+              var now = new Date().getTime();
+              //console.log(Math.random() * 330000000);
+			
+              // Set the date we're counting down to
+              var countDownDate = Math.random() * 765432100 + now; //new Date("Mar 15, 2025 21:30:00").getTime();
+              //console.log(countDownDate-now);
+            
+              // Update the count down every 1 second
+              var x = setInterval(function() {
+                
+              // Find the distance between now and the count down date
+              var distance = countDownDate - now;
+                
+              // Time calculations for days, hours, minutes and seconds
+              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+              // Output the result in an element with id="demo"
+              if(hours<1){
+                document.getElementById("countdown").innerHTML = "<span class='minutes'>" + minutes + "</span><span class='seconds'>" + seconds + "</span>";
+              }
+              else if(days<1){
+                document.getElementById("countdown").innerHTML = "<span class='hours'>" + hours + "</span><span class='minutes'>" + minutes + "</span><span class='seconds'>" + seconds + "</span>";
+              }else{
+                document.getElementById("countdown").innerHTML = "<span class='days'>" + days + "</span><span class='hours'>" + hours + "</span><span class='minutes'>" + minutes + "</span><span class='seconds'>" + seconds + "</span>";
+              }  
+              // If the count down is over, write some text 
+              if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+              }
+            }, 1000);
+		</script>
+    <style>.count{ text-align: center; font-size: 17px; font-family: Arial, sans-serif, bold;
+        }
+        .days:after{content: " days, ";
+        }
+        .hours:after{content: " hours ";
+        }
+        .minutes:after{content: " minutse ";
+        }
+        .seconds:after{content: " seconds ";
+        }
+    </style>
+	</body>
+</html>
