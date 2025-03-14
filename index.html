@@ -8,7 +8,8 @@
 	<head>
 		<title>QAS</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />		
+		<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
@@ -36,7 +37,7 @@
 
 				<!-- Footer "http://html5up.net"-->
 					<footer id="footer">
-						<span class="copyright">&copy; 2025. Design by <a href="#">html5up</a>.</span>
+						<span class="copyright">Design by <em style="font-style: italic;">html5up</em>. &copy; <text id="tanggal">1989</text></span>. 
 					</footer>
 
 			</div>
@@ -46,12 +47,16 @@
 			window.ontouchmove = function() { return false; }
 			window.onorientationchange = function() { document.body.scrollTop = 0; }
             
-              // Get today's date and time
-              var now = new Date().getTime();
-              //console.log(Math.random() * 330000000);
+               // Tanggal saiki
+			  const d = new Date();
+              const month   = d.toLocaleString(["ban", "id"], {month:'long',timeZone: "UTC"}); // months from 1-12
+              const day     = d.toLocaleString(["ban", "id"], {weekday:'long',timeZone: "UTC"});
+              const tanggal = day + ", " + d.getUTCDate()  + " " + month + " " + d.getUTCFullYear();
+              document.getElementById("tanggal").innerHTML = tanggal;
+              //console.log(tanggal);
 			
               // Set the date we're counting down to
-              var countDownDate = Math.random() * 765432100 + now; //new Date("Mar 15, 2025 21:30:00").getTime();
+              var countDownDate = Math.random() * 765432100 + d.getTime(); //new Date("Mar 15, 2025 21:30:00").getTime();
               //console.log(countDownDate-now);
             
               // Update the count down every 1 second
