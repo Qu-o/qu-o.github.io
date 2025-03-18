@@ -1,3 +1,5 @@
+Open Homepage: qu-o.github.io
+
 + random countdown + style at index.html By Quo_O
 
 Aerial by HTML5 UP
