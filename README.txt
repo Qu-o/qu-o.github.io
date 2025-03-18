@@ -1,4 +1,4 @@
-Open Homepage: qu-o.github.io
+Open Homepage: https://qu-o.github.io/
 
 + random countdown + style at index.html By Quo_O
 
