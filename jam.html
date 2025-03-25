@@ -234,8 +234,8 @@
             const timeText = clock.querySelector(".clock-time");
 
             // Set title and time text dynamically
-            titleText.textContent = time.city;
-            timeText.textContent = `${time.hour}:${time.minute.toString().padStart(2, '0')}`;
+            //titleText.textContent = time.city;
+            //timeText.textContent = `${time.hour}:${time.minute.toString().padStart(2, '0')}`;
 
             // Calculate rotations
             const hourRotation = (time.hour % 12) * 30 + (time.minute / 60) * 30; // Each hour = 30°
@@ -257,8 +257,8 @@
             document.getElementById("utc-minute").style.transform = `translateX(-50%) rotate(${utcMinutes * 6}deg)`;
             document.getElementById("utc-second").style.transform = `translateX(-50%) rotate(${utcSeconds * 6}deg)`;
 
-            document.getElementById("utc-hour-text").textContent = String(utcHours).padStart(2, '0');
-            document.getElementById("utc-minute-text").textContent = String(utcMinutes).padStart(2, '0');
+            //document.getElementById("utc-hour-text").textContent = String(utcHours).padStart(2, '0');
+            //document.getElementById("utc-minute-text").textContent = String(utcMinutes).padStart(2, '0');
 
             Object.keys(manualTimes).forEach(id => {
                 document.getElementById(id).style.transform = `translateX(-50%) rotate(${(manualTimes[id] % 12) * 30 + (manualTimes[id.replace('-hour', '-minute')] / 2)}deg)`;
