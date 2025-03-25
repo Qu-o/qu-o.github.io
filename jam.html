@@ -203,15 +203,13 @@
 <div style="width: 100%;">
     <div class="clock-container">
         <span class="kst-clock-title">KST            
-            <!-- Sound Toggle Button with Icon -->
+            <!-- Sound Toggle Button with Icon
                 <button class="toggle-button" id="toggle-sound">
-                <!-- Initially, sound is off so show muted icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sound-icon">
-                    <!-- Muted Speaker Icon --> 
                     <path d="M16.5 12l2.5 2.5-1.42 1.42L15.08 13.4l-2.5 2.5-1.42-1.42 2.5-2.5-2.5-2.5L11.67 8l2.5 2.5 2.5-2.5L16.5 9.09l-2.5 2.5z"/>
                     <path d="M3 9v6h4l5 5V4L7 9H3z"/>
                 </svg>
-                </button>
+                </button> -->
                 <button class="promo__video-controls button-volume" id="volume">       </button>
         </span>
       <div class="hand hour" id="kst-hour"></div>
@@ -321,35 +319,35 @@
         let soundEnabled = false;
 
         function updateClock() {
-        const now = new Date();
-        const kstTime = new Date(now.getTime() + 9 * 60 * 60 * 1000); // Convert to KST (UTC+9)
-        const kstHours = kstTime.getUTCHours();
-        const kstMinutes = kstTime.getUTCMinutes();
-        const kstSeconds = kstTime.getUTCSeconds();
-        
-        // Calculate rotations
-        const hourRotation = (kstHours % 12) * 30 + kstMinutes / 2;
-        const minuteRotation = kstMinutes * 6;
-        const secondRotation = kstSeconds * 6;
-        
-        // For smooth second-hand transition, remove transition when seconds equal 0
-        const secondHand = document.getElementById("kst-second");
-        secondHand.style.transition = kstSeconds === 0 ? "none" : "transform 0.2s linear";
-        
-        // Update hand positions
-        document.getElementById("kst-hour").style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
-        document.getElementById("kst-minute").style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
-        document.getElementById("kst-second").style.transform = `translateX(-50%) rotate(${secondRotation}deg)`;
-        
-        // Update digital display (HH:MM)
-        const digitalTime = String(kstHours).padStart(2, '0') + ":" + String(kstMinutes).padStart(2, '0');
-        document.getElementById("kst-digital-time").textContent = digitalTime;
-        
-        // Play ticking sound if enabled
-        if (soundEnabled) {
-            tickingSound.currentTime = 0;
-            tickingSound.play();
-        }
+            const now = new Date();
+            const kstTime = new Date(now.getTime() + 9 * 60 * 60 * 1000); // Convert to KST (UTC+9)
+            const kstHours = kstTime.getUTCHours();
+            const kstMinutes = kstTime.getUTCMinutes();
+            const kstSeconds = kstTime.getUTCSeconds();
+            
+            // Calculate rotations
+            const hourRotation = (kstHours % 12) * 30 + kstMinutes / 2;
+            const minuteRotation = kstMinutes * 6;
+            const secondRotation = kstSeconds * 6;
+            
+            // For smooth second-hand transition, remove transition when seconds equal 0
+            const secondHand = document.getElementById("kst-second");
+            secondHand.style.transition = kstSeconds === 0 ? "none" : "transform 0.2s linear";
+            
+            // Update hand positions
+            document.getElementById("kst-hour").style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
+            document.getElementById("kst-minute").style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
+            document.getElementById("kst-second").style.transform = `translateX(-50%) rotate(${secondRotation}deg)`;
+            
+            // Update digital display (HH:MM)
+            const digitalTime = String(kstHours).padStart(2, '0') + ":" + String(kstMinutes).padStart(2, '0');
+            document.getElementById("kst-digital-time").textContent = digitalTime;
+            
+            // Play ticking sound if enabled
+            if (soundEnabled) {
+                tickingSound.currentTime = 0;
+                tickingSound.play();
+            }
         }
 
         // Toggle sound and update icon accordingly
@@ -361,7 +359,8 @@
 
         
         document.getElementsByClassName(".button-volume").addEventListener("click", function () {
-                $('.button-volume').toggleClass("mute");
+            soundEnabled = !soundEnabled;
+            $('.button-volume').toggleClass("mute");
         });
 
         // Update clock every second
