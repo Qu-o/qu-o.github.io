@@ -82,6 +82,12 @@
         .digital-display span {
             display: block;
         }
+        .kst-sclock-title {
+            position: absolute;
+            top: 10%;
+            font-size: 12px;
+            font-weight: bold;
+        }
         /* Button Styling */
         .button-container {
             margin-top: 20px;
@@ -175,6 +181,7 @@
 <body>
     <!-- Real-Time KST Clock Container -->
     <div class="clock-container">
+        <span class="kst-clock-title">KST</span>
       <div class="hand hour" id="kst-hour"></div>
       <div class="hand minute" id="kst-minute"></div>
       <div class="hand second" id="kst-second"></div>
@@ -183,7 +190,6 @@
         <span id="kst-digital-time">00:00</span>
       </div>
     </div>
-    <span>KST</span>
     <text id="tanggal">1989</text>
     <!-- Sound Toggle Button with Icon -->
     <div class="button-container">
