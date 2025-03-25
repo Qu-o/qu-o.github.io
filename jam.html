@@ -165,11 +165,14 @@
             <div class="hand second" id="utc-second"></div>
             <div class="center-dot"></div>
         </div>
-        <div class="utc-title">UTC Time</div>
-        <div class="utc-bottom">
+        <div class="utc-title">Local South Korean Time/div>
+        <text id="tanggal">1989</text>
+        <!-- 
+            <div class="utc-bottom">
             <span id="utc-hour-text">00</span> : 
             <span id="utc-minute-text">00</span>
         </div>
+        -->
     </div>
     <div class="clock-container">
         <div class="clock">
@@ -210,6 +213,13 @@
     </div>
 
     <script>
+          const d = new Date();
+          const month   = d.toLocaleString(["ban", "id"], {month:'long',timeZone: "UTC"}); // months from 1-12
+          const day     = d.toLocaleString(["ban", "id"], {weekday:'long',timeZone: "UTC"});
+          const tanggal = day + ", " + d.getUTCDate()  + " " + month + " " + d.getUTCFullYear();
+          document.getElementById("tanggal").innerHTML = tanggal;
+          //console.log(tanggal);
+        
         const times = [
             { city: "Subuh", hour: 5, minute: 30 },
             { city: "Duhr", hour: 1, minute: 15 },
@@ -251,14 +261,6 @@
 
             document.getElementById("utc-hour-text").textContent = String(utcHours).padStart(2, '0');
             document.getElementById("utc-minute-text").textContent = String(utcMinutes).padStart(2, '0');
-
-            // Manually set times for other clocks (without seconds)
-            const manualTimes = {
-                "ny-hour": 8, "ny-minute": 30, // New York
-                "ldn-hour": 14, "ldn-minute": 45, // London
-                "tokyo-hour": 22, "tokyo-minute": 10, // Tokyo
-                "sydney-hour": 5, "sydney-minute": 20 // Sydney
-            };
 
             Object.keys(manualTimes).forEach(id => {
                 document.getElementById(id).style.transform = `translateX(-50%) rotate(${(manualTimes[id] % 12) * 30 + (manualTimes[id.replace('-hour', '-minute')] / 2)}deg)`;
