@@ -93,10 +93,10 @@
             margin-top: 20px;
         }
         .toggle-button {
-            padding: 10px;
+            padding: 0.5em;
             background-color: #ff4757;
             border: none;
-            border-radius: 5px;
+            border-radius: 50%;
             cursor: pointer;
             transition: background 0.3s ease;
         }
@@ -183,7 +183,6 @@
     <div class="clock-container">
         <span class="kst-clock-title">KST            
             <!-- Sound Toggle Button with Icon -->
-            <div class="button-container">
                 <button class="toggle-button" id="toggle-sound">
                 <!-- Initially, sound is off so show muted icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sound-icon">
@@ -192,7 +191,6 @@
                     <path d="M3 9v6h4l5 5V4L7 9H3z"/>
                 </svg>
                 </button>
-            </div>
         </span>
       <div class="hand hour" id="kst-hour"></div>
       <div class="hand minute" id="kst-minute"></div>
@@ -202,8 +200,9 @@
         <span id="kst-digital-time">00:00</span>
       </div>
     </div>
-    <text id="tanggal">1989</text>
-
+    <div class="button-container">
+        <text id="tanggal">1989</text>
+    </div>
     <!-- Others Clocks -->
     <div class="sclock-container">
         <div class="sclock">
