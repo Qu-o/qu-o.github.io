@@ -330,9 +330,9 @@
         // Toggle sound and update icon accordingly
         document.getElementById("toggle-sound").addEventListener("click", function () {
             soundEnabled = !soundEnabled;
-             Update button inner HTML without removing the button's id
+             // Update button inner HTML without removing the button's id
             document.getElementById("toggle-sound").innerHTML = soundEnabled ? soundOnIcon : soundOffIcon;
-        //});
+        });
 
         // Update clock every second
         setInterval(updateClock, 1000);
