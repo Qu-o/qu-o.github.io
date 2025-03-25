@@ -97,10 +97,10 @@
 		border: none;
 		background-color: transparent;
 		border: 1px solid white;
-		border-radius: 50%;
-            */
 		background-repeat: no-repeat;
 		background-position: center center;
+            */
+		border-radius: 50%;
 		transition: 0.2s;
 		min-width: 25px;
 		min-height: 25px;
@@ -230,7 +230,7 @@
         <span class="kst-clock-title">KST            
             <!-- Sound Toggle Button with Icon  -->
                 <button class="toggle-button" id="toggle-sound">
-                	<i class="fa fa-volume-off"></i>
+                	<i class="fa fa-volume-mute"></i>
                 </button>
         </span>
       <div class="hand hour" id="kst-hour"></div>
@@ -285,7 +285,7 @@
         
         // Define SVG icons as strings
         const soundOnIcon = '<i class="fa fa-volume-up"></i>';
-        const soundOffIcon = '<i class="fa fa-volume-off"></i>';
+        const soundOffIcon = '<i class="fa fa-volume-mute"></i>';
 
         let tickingSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5"); // Online ticking sound
         let soundEnabled = false;
