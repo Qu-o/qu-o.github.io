@@ -32,6 +32,19 @@
             max-width: 900px;
             padding-bottom: 20px;
         }
+        .KST-clock-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 8px solid #fff;
+            border-radius: 50%;
+            background: radial-gradient(circle, #2c2c2c, #1a1a1a);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
         .clock {
             width: 18vw;
             max-width: 150px;
@@ -93,6 +106,28 @@
     </style>
 </head>
 <body><text id="tanggal">1989</text>
+    <!-- Real-Time KST Clock Container -->
+    <div class="KST-clock-container">
+      <div class="hand hour" id="kst-hour"></div>
+      <div class="hand minute" id="kst-minute"></div>
+      <div class="hand second" id="kst-second"></div>
+      <div class="center-dot"></div>
+      <div class="digital-display">
+        <span>KST</span>
+        <span id="kst-digital-time">00:00</span>
+      </div>
+    </div>
+  
+    <!-- Sound Toggle Button with Icon -->
+    <div class="button-container">
+      <button class="toggle-button" id="toggle-sound">
+        <!-- Initially, sound is off so show muted icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sound-icon">
+          <!-- Muted Speaker Icon --> 
+          <path d="M16.5 12l2.5 2.5-1.42 1.42L15.08 13.4l-2.5 2.5-1.42-1.42 2.5-2.5-2.5-2.5L11.67 8l2.5 2.5 2.5-2.5L16.5 9.09l-2.5 2.5z"/>
+          <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+        </svg>
+      </button>
     <div class="clock-container">
         <div class="clock">
             <span class="clock-title"></span>
@@ -165,7 +200,66 @@
             // Apply rotations
             hourHand.style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
             minuteHand.style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
-        });        
+        });       
+        
+        
+        // Define SVG icons as strings
+        const soundOnIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <!-- Speaker Icon --> 
+        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+        <path d="M14 3.23v2.06c3.39.49 6 3.39 6 6.71s-2.61 6.22-6 6.71v2.06c4.45-.5 8-4.27 8-8.77s-3.55-8.27-8-8.77z"/>
+        </svg>`;
+        const soundOffIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <!-- Muted Speaker Icon --> 
+        <path d="M16.5 12l2.5 2.5-1.42 1.42L15.08 13.4l-2.5 2.5-1.42-1.42 2.5-2.5-2.5-2.5L11.67 8l2.5 2.5 2.5-2.5L16.5 9.09l-2.5 2.5z"/>
+        <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+        </svg>`;
+
+        let tickingSound = new Audio("https://www.fesliyanstudios.com/play-mp3/5"); // Online ticking sound
+        let soundEnabled = false;
+
+        function updateClock() {
+        const now = new Date();
+        const kstTime = new Date(now.getTime() + 9 * 60 * 60 * 1000); // Convert to KST (UTC+9)
+        const kstHours = kstTime.getUTCHours();
+        const kstMinutes = kstTime.getUTCMinutes();
+        const kstSeconds = kstTime.getUTCSeconds();
+        
+        // Calculate rotations
+        const hourRotation = (kstHours % 12) * 30 + kstMinutes / 2;
+        const minuteRotation = kstMinutes * 6;
+        const secondRotation = kstSeconds * 6;
+        
+        // For smooth second-hand transition, remove transition when seconds equal 0
+        const secondHand = document.getElementById("kst-second");
+        secondHand.style.transition = kstSeconds === 0 ? "none" : "transform 0.2s linear";
+        
+        // Update hand positions
+        document.getElementById("kst-hour").style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
+        document.getElementById("kst-minute").style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
+        document.getElementById("kst-second").style.transform = `translateX(-50%) rotate(${secondRotation}deg)`;
+        
+        // Update digital display (HH:MM)
+        const digitalTime = String(kstHours).padStart(2, '0') + ":" + String(kstMinutes).padStart(2, '0');
+        document.getElementById("kst-digital-time").textContent = digitalTime;
+        
+        // Play ticking sound if enabled
+        if (soundEnabled) {
+            tickingSound.currentTime = 0;
+            tickingSound.play();
+        }
+        }
+
+        // Toggle sound and update icon accordingly
+        document.getElementById("toggle-sound").addEventListener("click", function () {
+        soundEnabled = !soundEnabled;
+        // Update button inner HTML without removing the button's id
+        document.getElementById("toggle-sound").innerHTML = soundEnabled ? soundOnIcon : soundOffIcon;
+        });
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
