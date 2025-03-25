@@ -82,7 +82,7 @@
         .digital-display span {
             display: block;
         }
-        .kst-sclock-title {
+        .kst-clock-title {
             position: absolute;
             top: 10%;
             font-size: 12px;
@@ -181,7 +181,19 @@
 <body>
     <!-- Real-Time KST Clock Container -->
     <div class="clock-container">
-        <span class="kst-clock-title">KST</span>
+        <span class="kst-clock-title">KST            
+            <!-- Sound Toggle Button with Icon -->
+            <div class="button-container">
+                <button class="toggle-button" id="toggle-sound">
+                <!-- Initially, sound is off so show muted icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sound-icon">
+                    <!-- Muted Speaker Icon --> 
+                    <path d="M16.5 12l2.5 2.5-1.42 1.42L15.08 13.4l-2.5 2.5-1.42-1.42 2.5-2.5-2.5-2.5L11.67 8l2.5 2.5 2.5-2.5L16.5 9.09l-2.5 2.5z"/>
+                    <path d="M3 9v6h4l5 5V4L7 9H3z"/>
+                </svg>
+                </button>
+            </div>
+        </span>
       <div class="hand hour" id="kst-hour"></div>
       <div class="hand minute" id="kst-minute"></div>
       <div class="hand second" id="kst-second"></div>
@@ -191,16 +203,6 @@
       </div>
     </div>
     <text id="tanggal">1989</text>
-    <!-- Sound Toggle Button with Icon -->
-    <div class="button-container">
-      <button class="toggle-button" id="toggle-sound">
-        <!-- Initially, sound is off so show muted icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="sound-icon">
-          <!-- Muted Speaker Icon --> 
-          <path d="M16.5 12l2.5 2.5-1.42 1.42L15.08 13.4l-2.5 2.5-1.42-1.42 2.5-2.5-2.5-2.5L11.67 8l2.5 2.5 2.5-2.5L16.5 9.09l-2.5 2.5z"/>
-          <path d="M3 9v6h4l5 5V4L7 9H3z"/>
-        </svg>
-      </button>
 
     <!-- Others Clocks -->
     <div class="sclock-container">
