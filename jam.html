@@ -158,11 +158,15 @@
 </head>
 <body>
     <!-- Real-Time UTC Clock -->
+    <!-- Sound Toggle Button -->
+    <div class="button-container">
+        <button class="toggle-button" id="toggle-sound">Turn Sound ON</button>
+    </div>
     <div class="utc-clock-container">
         <div class="utc-clock">
-            <div class="hand hour" id="utc-hour"></div>
-            <div class="hand minute" id="utc-minute"></div>
-            <div class="hand second" id="utc-second"></div>
+            <div class="hand hour" id="kst-hour"></div>
+            <div class="hand minute" id="kst-minute"></div>
+            <div class="hand second" id="kst-second"></div>
             <div class="center-dot"></div>
         </div>
         <div class="utc-title">Local South Korean Time</div>        
@@ -246,28 +250,42 @@
             minuteHand.style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
         });
         
-        function updateClocks() {
+        let tickingSound = new Audio("https://www.fesliyanstudios.com/play-mp3/4389"); // Online ticking sound
+        let soundEnabled = false;
+
+        function updateClock() {
             const now = new Date();
-            const utcHours = now.getUTCHours();
-            const utcMinutes = now.getUTCMinutes();
-            const utcSeconds = now.getUTCSeconds();
+            const kstTime = new Date(now.getTime() + (9 * 60 * 60 * 1000)); // Convert to KST (UTC+9)
+            
+            const kstHours = kstTime.getUTCHours();
+            const kstMinutes = kstTime.getUTCMinutes();
+            const kstSeconds = kstTime.getUTCSeconds();
 
-            // Update UTC clock
-            document.getElementById("utc-hour").style.transform = `translateX(-50%) rotate(${(utcHours % 12) * 30 + utcMinutes / 2}deg)`;
-            document.getElementById("utc-minute").style.transform = `translateX(-50%) rotate(${utcMinutes * 6}deg)`;
-            document.getElementById("utc-second").style.transform = `translateX(-50%) rotate(${utcSeconds * 6}deg)`;
+            // Update clock hands
+            document.getElementById("kst-hour").style.transform = `translateX(-50%) rotate(${(kstHours % 12) * 30 + kstMinutes / 2}deg)`;
+            document.getElementById("kst-minute").style.transform = `translateX(-50%) rotate(${kstMinutes * 6}deg)`;
+            document.getElementById("kst-second").style.transform = `translateX(-50%) rotate(${kstSeconds * 6}deg)`;
 
-            document.getElementById("utc-hour-text").textContent = String(utcHours).padStart(2, '0');
-            document.getElementById("utc-minute-text").textContent = String(utcMinutes).padStart(2, '0');
+            // Update digital time display
+            document.getElementById("kst-hour-text").textContent = String(kstHours).padStart(2, '0');
+            document.getElementById("kst-minute-text").textContent = String(kstMinutes).padStart(2, '0');
 
-            //Object.keys(manualTimes).forEach(id => {
-            //    document.getElementById(id).style.transform = `translateX(-50%) rotate(${(manualTimes[id] % 12) * 30 + (manualTimes[id.replace('-hour', '-minute')] / 2)}deg)`;
-            //});
+            // Play ticking sound if enabled
+            if (soundEnabled) {
+                tickingSound.currentTime = 0; // Reset sound for smooth ticking
+                tickingSound.play();
+            }
         }
 
-        // Update every second
-        setInterval(updateClocks, 1000);
-        updateClocks();
+        // Toggle sound on/off
+        document.getElementById("toggle-sound").addEventListener("click", function() {
+            soundEnabled = !soundEnabled;
+            this.textContent = soundEnabled ? "Turn Sound OFF" : "Turn Sound ON";
+        });
+
+        // Update clock every second
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
