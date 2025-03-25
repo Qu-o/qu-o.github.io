@@ -20,6 +20,73 @@
             color: white;
             font-family: Arial, sans-serif;
         }
+        /* UTC Clock */
+        .utc-clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .utc-clock {
+            width: 200px;
+            height: 200px;
+            border: 8px solid #fff;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, #2c2c2c, #1a1a1a);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            background: white;
+            border-radius: 5px;
+            transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.3, 1);
+            opacity: 0.7;
+        }
+        .hour {
+            width: 6px;
+            height: 50px;
+        }
+        .minute {
+            width: 4px;
+            height: 70px;
+        }
+        .second {
+            width: 2px;
+            height: 80px;
+            background: red;
+            opacity: 0.9;
+        }
+        .center-dot {
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .utc-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .utc-bottom {
+            display: flex;
+            justify-content: space-between;
+            width: 100px;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        /* Other Clocks */
         .clock-container {
             display: flex;
             flex-wrap: wrap;
@@ -90,6 +157,20 @@
     </style>
 </head>
 <body>
+    <!-- Real-Time UTC Clock -->
+    <div class="utc-clock-container">
+        <div class="utc-clock">
+            <div class="hand hour" id="utc-hour"></div>
+            <div class="hand minute" id="utc-minute"></div>
+            <div class="hand second" id="utc-second"></div>
+            <div class="center-dot"></div>
+        </div>
+        <div class="utc-title">UTC Time</div>
+        <div class="utc-bottom">
+            <span id="utc-hour-text">00</span> : 
+            <span id="utc-minute-text">00</span>
+        </div>
+    </div>
     <div class="clock-container">
         <div class="clock">
             <span class="clock-title"></span>
@@ -156,6 +237,37 @@
             hourHand.style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
             minuteHand.style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
         });
+        
+        function updateClocks() {
+            const now = new Date();
+            const utcHours = now.getUTCHours();
+            const utcMinutes = now.getUTCMinutes();
+            const utcSeconds = now.getUTCSeconds();
+
+            // Update UTC clock
+            document.getElementById("utc-hour").style.transform = `translateX(-50%) rotate(${(utcHours % 12) * 30 + utcMinutes / 2}deg)`;
+            document.getElementById("utc-minute").style.transform = `translateX(-50%) rotate(${utcMinutes * 6}deg)`;
+            document.getElementById("utc-second").style.transform = `translateX(-50%) rotate(${utcSeconds * 6}deg)`;
+
+            document.getElementById("utc-hour-text").textContent = String(utcHours).padStart(2, '0');
+            document.getElementById("utc-minute-text").textContent = String(utcMinutes).padStart(2, '0');
+
+            // Manually set times for other clocks (without seconds)
+            const manualTimes = {
+                "ny-hour": 8, "ny-minute": 30, // New York
+                "ldn-hour": 14, "ldn-minute": 45, // London
+                "tokyo-hour": 22, "tokyo-minute": 10, // Tokyo
+                "sydney-hour": 5, "sydney-minute": 20 // Sydney
+            };
+
+            Object.keys(manualTimes).forEach(id => {
+                document.getElementById(id).style.transform = `translateX(-50%) rotate(${(manualTimes[id] % 12) * 30 + (manualTimes[id.replace('-hour', '-minute')] / 2)}deg)`;
+            });
+        }
+
+        // Update every second
+        setInterval(updateClocks, 1000);
+        updateClocks();
     </script>
 </body>
 </html>
