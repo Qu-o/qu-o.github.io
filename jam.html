@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Clocks with Dynamic Titles & Times</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .clock-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 90%;
+            max-width: 900px;
+            padding-bottom: 20px;
+        }
+        .clock {
+            width: 18vw;
+            max-width: 150px;
+            height: 18vw;
+            max-height: 150px;
+            border: 6px solid gray;
+            border-radius: 50%;
+            position: relative;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            background: white;
+            border-radius: 5px;
+            opacity: 0.4; /* Makes hands semi-transparent */
+        }
+        .hour {
+            width: 3%;
+            height: 25%;
+        }
+        .minute {
+            width: 2%;
+            height: 35%;
+        }
+        .center-dot {
+            width: 5%;
+            height: 5%;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .clock-title {
+            position: absolute;
+            top: 10%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .clock-time {
+            position: absolute;
+            bottom: 10%;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .clock {
+                width: 30vw;
+                height: 30vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="clock">
+            <span class="clock-title"></span>
+            <span class="clock-time"></span>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="center-dot"></div>
+        </div>
+        <div class="clock">
+            <span class="clock-title"></span>
+            <span class="clock-time"></span>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="center-dot"></div>
+        </div>
+        <div class="clock">
+            <span class="clock-title"></span>
+            <span class="clock-time"></span>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="center-dot"></div>
+        </div>
+        <div class="clock">
+            <span class="clock-title"></span>
+            <span class="clock-time"></span>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="center-dot"></div>
+        </div>
+        <div class="clock">
+            <span class="clock-title"></span>
+            <span class="clock-time"></span>
+            <div class="hand hour"></div>
+            <div class="hand minute"></div>
+            <div class="center-dot"></div>
+        </div>
+    </div>
+
+    <script>
+        const times = [
+            { city: "Subuh", hour: 5, minute: 30 },
+            { city: "Duhr", hour: 1, minute: 15 },
+            { city: "Ashar", hour: 16, minute: 30 },
+            { city: "Magrb", hour: 17, minute: 45 },
+            { city: "Isya'", hour: 19, minute: 55 }
+        ];
+
+        document.querySelectorAll(".clock").forEach((clock, index) => {
+            const time = times[index];
+            const hourHand = clock.querySelector(".hour");
+            const minuteHand = clock.querySelector(".minute");
+            const titleText = clock.querySelector(".clock-title");
+            const timeText = clock.querySelector(".clock-time");
+
+            // Set title and time text dynamically
+            titleText.textContent = time.city;
+            timeText.textContent = `${time.hour}:${time.minute.toString().padStart(2, '0')}`;
+
+            // Calculate rotations
+            const hourRotation = (time.hour % 12) * 30 + (time.minute / 60) * 30; // Each hour = 30°
+            const minuteRotation = time.minute * 6; // Each minute = 6°
+
+            // Apply rotations
+            hourHand.style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
+            minuteHand.style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
+        });
+    </script>
+</body>
+</html>
