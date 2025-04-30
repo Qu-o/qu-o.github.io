@@ -135,6 +135,7 @@
             // Set title and time text dynamically
             titleText.textContent = time.city;
             timeText.textContent = `${time.hour}:${time.minute.toString().padStart(2, '0')}`;
+            console.log(`${time.hour}:${time.minute.toString().padStart(2, '0')}`);
 
             // Calculate rotations
             const hourRotation = (time.hour % 12) * 30 + (time.minute / 60) * 30; // Each hour = 30°
