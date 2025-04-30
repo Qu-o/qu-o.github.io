@@ -116,14 +116,7 @@
         </div>
     </div>
 
-    <script>
-          const d = new Date();
-          const month   = d.toLocaleString(["ban", "id"], {month:'long',timeZone: "UTC"}); // months from 1-12
-          const day     = d.toLocaleString(["ban", "id"], {weekday:'long',timeZone: "UTC"});
-          const tanggal = day + ", " + d.getUTCDate()  + " " + month + " " + d.getUTCFullYear();
-          document.getElementById("tanggal").innerHTML = tanggal;
-          //console.log(tanggal);
-        
+    <script>        
         const times = [
             { city: "Subuh", hour: 5, minute: 30 },
             { city: "Duhr", hour: 11, minute: 45 },
